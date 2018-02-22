@@ -87,16 +87,16 @@
 
 (defun go-board-cross (color)
   (mapconcat #'go-board-svg-trans
-             `(((line (x1 . 3.125) (y1 . 3.125) (x2 . 21.875) (y2 . 21.875)
+             `(((line (x1 . 6.25) (y1 . 6.25) (x2 . 43.75) (y2 . 43.75)
                       (style . ,(format "stroke: %s;" color))))
-               ((line (x1 . 3.125) (y1 . 21.875) (x2 . 21.875) (y2 . 3.125)
+               ((line (x1 . 6.25) (y1 . 43.75) (x2 . 43.75) (y2 . 6.25)
                       (style . ,(format "stroke: %s;" color)))))
              ""))
 
 (defun go-board-label (color label)
   (go-board-svg-trans
-   `((text (x . 8.75) (y . 16.25) (r . 12.25)
-           (style . ,(format "font-size:12.5;fill:%s;" color)))
+   `((text (x . 17.5) (y . 32.5) (r . 24.5)
+           (style . ,(format "font-size:25.0;fill:%s;" color)))
      ,label)))
 
 (defun go-board-mark (overlay mark)
@@ -115,7 +115,7 @@
     (go-board-svg-trans
      '((svg (xmlns . "http://www.w3.org/2000/svg")
             (xmlns:xlink . "http://www.w3.org/1999/xlink")
-            (width . 25) (height . 25) (version . 1.0))
+            (width . 50) (height . 50) (version . 1.0))
        ,@body))))
 
 ;; TODO: To allow images to scale with text, this should return a
@@ -125,7 +125,7 @@
 (defmacro go-board-image (&rest body)
   ``(image :type svg :ascent center :data
            ,(go-board-wrap
-              ((rect (width . 25) (height . 25) (fill . "#dcb35c")))
+             ((rect (width . 50) (height . 50) (fill . "#dcb35c")))
               ,@body)))
 
 (defmacro go-board-image-sides (name &rest base)
@@ -138,15 +138,15 @@
               ,(when (cdr p)
                  `((path (stroke . "#000") (stroke-width . 1) (d . ,(cdr p)))))
               ,@base)))
-        '((left         . "M12,12.5H25M12.5,0V25")
-          (right        . "M0,12.5H13M12.5,0V25")
-          (top          . "M0,12.5H25M12.5,12V25")
-          (bottom       . "M0,12.5H25M12.5,0V12.5")
-          (top-left     . "M12,12.5H25M12.5,12V25")
-          (top-right    . "M0,12.5H13M12.5,12V25")
-          (bottom-left  . "M12,12.5H25M12.5,0V13")
-          (bottom-right . "M0,12.5H13M12.5,0V13")
-          (nil          . "M0,12.5H25M12.5,0V25")))))
+        '((left         . "M24,25H50M25,0V50")
+          (right        . "M0,25H26M25,0V50")
+          (top          . "M0,25H50M25,24V50")
+          (bottom       . "M0,25H50M25,0V25")
+          (top-left     . "M24,25H50M25,24V50")
+          (top-right    . "M0,25H26M25,24V50")
+          (bottom-left  . "M24,25H50M25,0V26")
+          (bottom-right . "M0,25H26M25,0V26")
+          (nil          . "M0,25H50M25,0V50")))))
 
 
 ;;; SVG Images
@@ -158,7 +158,7 @@
     ((stop (offset . 0)   (stop-color . "#777")))
     ((stop (offset . 0.3) (stop-color . "#222")))
     ((stop (offset . 1)   (stop-color . "#000")))))
-  ((circle (cx . 12.5) (cy . 12.5) (r . 9.375) (fill . "url(#$rg)"))))
+  ((circle (cx . 25.0) (cy . 25.0) (r . 18.75) (fill . "url(#$rg)"))))
 
 (go-board-image-sides white
   ((defs)
@@ -166,12 +166,12 @@
     ((stop (offset . 0.7) (stop-color . "#FFF")))
     ((stop (offset . 0.9) (stop-color . "#DDD")))
     ((stop (offset . 1)   (stop-color . "#777")))))
-  ((circle (cx . 12.5) (cy . 12.5) (r . 9.375) (fill . "url(#$rg)"))))
+  ((circle (cx . 25.0) (cy . 25.0) (r . 18.75) (fill . "url(#$rg)"))))
 
 (defvar go-board-image-hoshi
   (go-board-image
-   ((path (stroke . "#000") (stroke-width . 1) (d . "M0,12.5H25M12.5,0V25")))
-   ((circle (cx . 12.5) (cy . 12.5) (r . 2.5)))))
+   ((path (stroke . "#000") (stroke-width . 1) (d . "M0,25H50M25,0V50")))
+   ((circle (cx . 25.0) (cy . 25.0) (r . 5.0)))))
 
 (provide 'go-board-faces)
 ;;; go-board-faces.el ends here

@@ -364,7 +364,7 @@
                                     (go-completing-read
                                      (format "[%s] X pos: " color)
                                      (mapcar #'string
-                                             (mapcar #'gtp-num-to-char
+                                             (mapcar #'num-to-char
                                                      (range 1 *size*)))))
                                    0))
                             (1- (string-to-number
